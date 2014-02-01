@@ -7,6 +7,12 @@
  */
 
 
+var fps = 30;
+var now;
+var then = Date.now();
+var interval = 1000/fps;
+var delta;
+var densityK = 30000;
 var rMin = 4;
 var rMax = 125;
 var rVelMax = 0.05;
@@ -16,20 +22,23 @@ var blurHorizonMin = 0.7;
 var blurHorizonMax = 0.9;
 var blurHorizonOpacity = 0.8;
 var blurOpacityMax = 0.5;
-var num = 50;
+var viewportWidth  = document.documentElement.clientWidth
+var viewportHeight = document.documentElement.clientHeight
+var num = Math.ceil(viewportWidth * viewportHeight / densityK);
 var circleColor = '#FFFFFF';
 var backgroundColor = '#0AC3DA';
 var circles = null;
 var radgrad = null;
 var background = null;
+var canvas = null;
 
 
 function pageLoaded(){
     if (canvasSupport()) {
-        var canvas = document.createElement('canvas');
+        canvas = document.createElement('canvas');
         canvas.setAttribute('id', 'background');
-        canvas.setAttribute('width', screen.width);
-        canvas.setAttribute('height', screen.height);
+        canvas.setAttribute('width', viewportWidth);
+        canvas.setAttribute('height', viewportHeight);
         canvas.setAttribute('class', 'background');
         document.body.appendChild(canvas);
         
@@ -45,7 +54,7 @@ function pageLoaded(){
             scene.clear();
             context.fillStyle = backgroundColor;
             context.globalAlpha = 1;
-            context.fillRect(0, 0, screen.width, screen.height);
+            context.fillRect(0, 0, viewportWidth, viewportHeight);
             for (var n = 0; n < num; n++) {
                 context.beginPath();
                 context.globalAlpha = circles[n].opacity;
@@ -102,8 +111,8 @@ function randomFromToFloat(from, to){
 
 function generateObject(){
     return new Circle(
-        randomFromTo(0, screen.width),
-        randomFromTo(0, screen.height),
+        randomFromTo(0, viewportWidth),
+        randomFromTo(0, viewportHeight),
         randomFromTo(rMin, rMax),
         randomFromToFloat(0, rVelMax),
         randomFromToFloat(opacityMin, opacityMax),
@@ -239,23 +248,28 @@ anim.prototype.startAnimation = function(){
 anim.prototype.stopAnimation = function(){
     this.animating = false;
 };
-anim.prototype.getFps = function(){
-    return this.timeInterval > 0 ? 1000 / this.timeInterval : 0;
-};
+//anim.prototype.getFps = function(){
+//    return this.timeInterval > 0 ? 1000 / this.timeInterval : 0;
+//};
 anim.prototype.animationLoop = function(){
+	now = Date.now();
+	delta = now - then;
+	
     var that = this;
-
-    this.frame++;
-    var date = new Date();
-    var thisTime = date.getTime();
-    this.timeInterval = thisTime - this.lastTime;
-    this.t += this.timeInterval;
-    this.lastTime = thisTime;
-
-    if (this.drawStage !== undefined) {
-        this.drawStage();
-    }
-
+    //this.frame++;
+    //var date = new Date();
+    //var thisTime = date.getTime();
+    //this.timeInterval = thisTime - this.lastTime;
+    //this.t += this.timeInterval;
+    //this.lastTime = thisTime;
+	
+	if (delta > interval) {
+		then = now - (delta % interval);	
+		if (this.drawStage !== undefined) {
+        	this.drawStage();
+    	}
+	}
+    
     if (this.animating) {
         requestAnimFrame(function(){
             that.animationLoop();
@@ -298,3 +312,10 @@ if (/WebKit/i.test(navigator.userAgent)) {
 
 /* for other browsers */
 window.onload = init;
+
+window.onresize = function(event) {
+    viewportWidth  = document.documentElement.clientWidth
+	viewportHeight = document.documentElement.clientHeight
+	canvas.setAttribute('width', viewportWidth);
+    canvas.setAttribute('height', viewportHeight);
+};
