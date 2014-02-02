@@ -46,7 +46,14 @@ function pageLoaded(){
 
         var scene = new anim('background');
 
-        initObjects();
+		if(typeof(Storage)!== "undefined" && typeof(localStorage.s4nch3z_me_bg) !== "undefined"
+			&& localStorage.s4nch3z_me_bg !== null && localStorage.s4nch3z_me_bg !== ""
+			&& localStorage.s4nch3z_me_bg !== "null" && localStorage.s4nch3z_me_bg !== "undefined") {
+			circles = JSON.parse(localStorage.s4nch3z_me_bg);
+			num = circles.length;
+  		} else {
+	        initObjects();
+	    }
         
         scene.setDrawStage(function(){
             //console.log(kin.getFps());
@@ -312,3 +319,9 @@ if (/WebKit/i.test(navigator.userAgent)) {
 
 /* for other browsers */
 window.onload = init;
+
+window.onbeforeunload = function() {
+	if(typeof(Storage)!=="undefined") {
+		localStorage.s4nch3z_me_bg = JSON.stringify(circles);
+  	}
+}
