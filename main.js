@@ -22,8 +22,8 @@ var blurHorizonMin = 0.7;
 var blurHorizonMax = 0.9;
 var blurHorizonOpacity = 0.8;
 var blurOpacityMax = 0.5;
-var viewportWidth  = document.documentElement.clientWidth
-var viewportHeight = document.documentElement.clientHeight
+var viewportWidth  = screen.width;
+var viewportHeight = screen.height;
 var num = Math.ceil(viewportWidth * viewportHeight / densityK);
 var circleColor = '#FFFFFF';
 var backgroundColor = '#0AC3DA';
@@ -312,10 +312,3 @@ if (/WebKit/i.test(navigator.userAgent)) {
 
 /* for other browsers */
 window.onload = init;
-
-window.onresize = function(event) {
-    viewportWidth  = document.documentElement.clientWidth
-	viewportHeight = document.documentElement.clientHeight
-	canvas.setAttribute('width', viewportWidth);
-    canvas.setAttribute('height', viewportHeight);
-};
