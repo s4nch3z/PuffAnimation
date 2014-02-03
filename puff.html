@@ -1,0 +1,88 @@
+<html>
+<head>
+    <style type="text/css">
+        .github-fork-ribbon {
+            position: absolute;
+            padding: 2px 0;
+            background-color: #a00;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.15)));
+            background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+            background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+            background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+            background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+            background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+            -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+            -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+            z-index: 2147483647;
+            pointer-events: auto;
+        }
+        .github-fork-ribbon a,
+        .github-fork-ribbon a:hover {
+            font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 200px;
+            line-height: 20px;
+            display: inline-block;
+            padding: 2px 0;
+            border-width: 1px 0;
+            border-style: dotted;
+            border-color: #fff;
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+        .github-fork-ribbon-wrapper {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            overflow: hidden;
+            top: 0;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .github-fork-ribbon-wrapper.left {
+            left: 0;
+        }
+        .github-fork-ribbon-wrapper.left .github-fork-ribbon {
+            top: 42px;
+            left: -43px;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+    </style>
+	<script type="text/javascript">
+        /**
+         * Copyright (c) 2011, Alexander Prokopyev
+         * All rights reserved.
+         *
+         * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+         *
+         * 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+         * 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+         */
+        var puff=function(e){var c={fps:30,densityK:3E4,rMin:4,rMax:125,rVelMax:0.05,opacityMin:0,opacityMax:1,blurHorizonMin:0.7,blurHorizonMax:0.9,blurHorizonOpacity:0.8,blurOpacityMax:0.5,circleColor:"#FFFFFF",backgroundColor:"#0AC3DA"};"undefined"!==typeof e&&null!==e&&""!==e&&(c=JSON.parse(e));var n=Date.now(),p=1E3/c.fps,g=Math.ceil(screen.width*screen.height/c.densityK),b=null,f=null,d=null,k=!1,t=function(a,b,d,f,e,g){this.x=a;this.y=b;this.r=d;this.rVel=f;this.opacity=c.opacityMin;0==h(0,4)?(this.blur=!0,this.opacityMax=c.blurOpacityMax,this.color0=g,this.color1=q(g,c.blurHorizonOpacity),this.color2=q(g,0),this.blurHorizon=l(c.blurHorizonMin,c.blurHorizonMax)):(this.blur=!1,this.opacityMax=e,this.color=g);this.goingUp=!0},h=function(a,b){return Math.floor(Math.random()*(b-a+1)+a)},l=function(a,b){return Math.random()*(b-a)+a},r=function(){return new t(h(0,screen.width),h(0,screen.height),h(c.rMin,c.rMax),l(0,c.rVelMax),l(c.opacityMin,c.opacityMax),c.circleColor)};e=function(){b=[];for(var a=0;a<g;a++)b.push(r())};var q=function(a,b){a=a.replace(/^\s*#|\s*$/g,"");3==a.length&&(a=a.replace(/(.)/g,"$1$1"));var c=parseInt(a.substr(2,2),16).toString(),d=parseInt(a.substr(4,2),16).toString();return"rgba("+parseInt(a.substr(0,2),16).toString()+", "+c+", "+d+", "+b+")"},s=function(){var a=Date.now(),b=a-n;b>p&&(n=a-b%p,m());k&&u(function(){s()})},m=function(){for(var a=0;a<g;a++)b[a].r+=b[a].rVel,b[a].opacity=b[a].goingUp?b[a].opacity+0.01:b[a].opacity-0.01,b[a].opacity>b[a].opacityMax&&(b[a].goingUp=!1),b[a].opacity<c.opacityMin&&(b[a].goingUp=!0,b[a]=r());f.width=f.width;d.fillStyle=c.backgroundColor;d.globalAlpha=1;d.fillRect(0,0,screen.width,screen.height);for(a=0;a<g;a++)if(d.beginPath(),d.globalAlpha=b[a].opacity,b[a].blur){var e=d.createRadialGradient(b[a].x,b[a].y,0,b[a].x,b[a].y,b[a].r);e.addColorStop(0,b[a].color0);e.addColorStop(b[a].blurHorizon,b[a].color1);e.addColorStop(1,b[a].color2);d.fillStyle=e;d.fillRect(b[a].x-b[a].r,b[a].y-b[a].r,b[a].r+b[a].r,b[a].r+b[a].r)}else d.fillStyle=b[a].color,d.arc(b[a].x,b[a].y,b[a].r,0,Math.PI+Math.PI,!1),d.fill()},u=function(a){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(a){window.setTimeout(a,1E3/30)}}(null);document.createElement("canvas").getContext?("undefined"!==typeof Storage&&"undefined"!==typeof sessionStorage.puff&&null!==sessionStorage.puff&&""!==sessionStorage.puff&&"null"!==sessionStorage.puff&&"undefined"!==sessionStorage.puff?(b=JSON.parse(sessionStorage.puff),g=b.length):e(),window.onbeforeunload=function(){"undefined"!==typeof Storage&&"undefined"!==typeof b&&null!==b&&0<b.length&&(sessionStorage.puff=JSON.stringify(b))},f=document.createElement("canvas"),f.setAttribute("width",screen.width.toString()),f.setAttribute("height",screen.height.toString()),f.setAttribute("style","display: block !important; position: fixed !important; top: 0 !important; left: 0 !important; z-index: -2147483648 !important; visibility: visible !important; border: none !important; outline: none !important; margin: 0 !important; padding: 0 !important;"),document.body.appendChild(f),d=f.getContext("2d")):document.getElementsByTagName("body")[0].style.backgroundColor=c.backgroundColor;return{startAnimation:function(){0<b.length&&(k=!0,void 0!==m&&m(),s())},stopAnimation:function(){k=!1}}};function init(){arguments.callee.done||(arguments.callee.done=!0,_timer&&clearInterval(_timer),puff().startAnimation())}document.addEventListener&&document.addEventListener("DOMContentLoaded",init,!1);if(/WebKit/i.test(navigator.userAgent))var _timer=setInterval(function(){/loaded|complete/.test(document.readyState)&&init()},10);/*@cc_on @*/
+        /*@if (@_win32)
+         document.write("<script id=__ie_onload defer src=javascript:void(0)><\/script>");
+         var script = document.getElementById("__ie_onload");
+         script.onreadystatechange = function() {
+         if (this.readyState == "complete") {
+         init(); // call the onload handler
+         }
+         };
+         /*@end @*/
+        window.onload=init;
+	</script>
+</head>
+<body>
+<div class="github-fork-ribbon-wrapper left">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/s4nch3z/puff">Fork me on GitHub</a>
+    </div>
+</div>
+</body>
+</html>
