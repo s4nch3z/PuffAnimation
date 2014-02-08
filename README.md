@@ -3,8 +3,9 @@ puff.js
 
 Floating circles animation. Check it out here http://s4nch3z.me/wp-content/uploads/2014/02/puff.html
 
-This is how you start it:
-Native JS
+This is how you run it:
+
+**Native JS**
 ```html
 <script type="text/javascript" src="puff.min.js"></script>
 <script type="text/javascript">
@@ -38,7 +39,7 @@ Native JS
 </script>
 ```
 
-jQuery
+**jQuery**
 ```html
 <script type="text/javascript" src="puff.min.js"></script>
 <script type="text/javascript">
